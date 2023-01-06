@@ -1,0 +1,37 @@
+import torch
+import torchvision
+import torchvision.transforms as transforms  #------------------->importing libraries 
+from matplotlib import pyplot as plt
+
+train_set = torchvision.datasets.MNIST(
+    root='./data'
+    ,train=True
+    ,download=True
+    ,transform=transforms.Compose([
+        transforms.ToTensor()
+    ])                                 #------------------->Downloading handwritten dataset for trainng and testing the model
+)
+test_set = torchvision.datasets.MNIST(
+    root='./data'
+    ,train=False
+    ,transform=transforms.Compose([
+        transforms.ToTensor()
+    ])
+)
+
+print(train_set)                    #------------------->Checking the size of train data 
+print(test_set)                     #------------------->Checking the size of test data 
+
+
+for image,label in train_set:      #------------------->print transformed matrix along with labels    
+  print(image,label)
+
+plt.imshow(image.squeeze(), cmap='gray')  #------------------->vizualization of the digit
+print('label:', label)
+image.shape                              #------------------------> gray size image of 28 *28
+image.shape
+train_loader = torch.utils.data.DataLoader(            #------------------->creating a batch size of 10
+    train_set, 
+    batch_size=10,
+    shuffle=True)
+
